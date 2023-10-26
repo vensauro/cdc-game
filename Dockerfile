@@ -28,14 +28,15 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ENV APP_URL=${APP_URL}
-ARG APP_URL=${APP_URL}
-ENV WS_URL=${WS_URL}
-ARG WS_URL=${WS_URL}
-ENV NEXTAUTH_URL=${NEXTAUTH_URL}
-ARG NEXTAUTH_URL=${NEXTAUTH_URL}
-ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-ARG NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+ENV APP_URL="https://cdc.oc.ivensauro.dev"
+ARG APP_URL="https://cdc.oc.ivensauro.dev"
+ENV WS_URL="wss://cdc.oc.ivensauro.dev"
+ARG WS_URL="wss://cdc.oc.ivensauro.dev"
+ENV NEXTAUTH_URL="https://cdc.oc.ivensauro.dev/api/auth"
+ARG NEXTAUTH_URL="https://cdc.oc.ivensauro.dev/api/auth"
+ENV NEXTAUTH_SECRET="asdsadas"
+ARG NEXTAUTH_SECRET="asdsadas"
+
 
 RUN yarn build
 
@@ -62,11 +63,11 @@ RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/dist ./
+COPY --from=builder --chown=nextjs:nodejs /app ./
 
 USER nextjs
 
 ENV PORT 80
 EXPOSE 80
 
-CMD ["node", "./server/prodServer.js"]
+CMD ["node", "./dist/server/prodServer.js"]
