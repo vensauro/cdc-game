@@ -1,38 +1,23 @@
 {
-  "name": "@examples/next-websockets-starter",
+  "name": "cdc-game",
   "version": "10.42.0",
   "private": true,
   "engines": {
     "node": "^18.15.0"
   },
   "scripts": {
-    "prebuild": "prisma generate && prisma migrate deploy",
     "build:1-next": "cross-env NODE_ENV=production next build",
     "build:2-server": "tsc --project tsconfig.server.json",
     "build": "run-s build:*",
     "dev:wss": "cross-env PORT=3001 tsx watch src/server/wssDevServer.ts --tsconfig tsconfig.server.json ",
     "dev:next": "next dev",
-    "dev": "pnpm migrate-dev && run-p dev:*",
-    "db-up": "docker-compose up -d",
-    "db-seed": "prisma db seed",
-    "db-migrate-dev": "prisma migrate dev",
-    "db-nuke": "docker-compose down --volumes --remove-orphans",
-    "dx": "run-s db-up db-migrate-dev db-seed dev",
-    "dev-nuke": "rm -rf prisma/*.db**",
-    "generate": "prisma generate",
-    "migrate-dev": "prisma migrate dev",
-    "migrate": "prisma migrate deploy",
+    "dev": "run-p dev:*",
     "start": "cross-env NODE_ENV=production node dist/server/prodServer.js",
-    "studio": "prisma studio",
     "lint": "eslint --cache --ext \".js,.ts,.tsx\" --report-unused-disable-directives --report-unused-disable-directives src",
     "lint-fix": "pnpm lint --fix",
     "test-dev": "cross-env APP_ENV=test start-server-and-test dev 3000 test",
     "test-start": "cross-env APP_ENV=test WS_URL=ws://localhost:3000 start-server-and-test start 3000 test",
-    "test": "playwright test",
-    "postinstall": "prisma generate"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "test": "playwright test"
   },
   "prettier": {
     "printWidth": 80,
@@ -41,7 +26,6 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
-    "@prisma/client": "^4.14.1",
     "@tanstack/react-query": "^4.18.0",
     "@trpc/client": "^10.42.0",
     "@trpc/next": "^10.42.0",
@@ -85,7 +69,6 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.14",
     "prettier": "^2.8.8",
-    "prisma": "^4.14.1",
     "start-server-and-test": "^1.12.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.1.3"
