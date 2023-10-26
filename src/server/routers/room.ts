@@ -6,10 +6,9 @@ import { observable } from '@trpc/server/observable';
 import { EventEmitter } from 'events';
 import { z } from 'zod';
 import { authedProcedure, publicProcedure, router } from '../trpc';
-import { GameAction, Game, GameUser, db } from 'server/db';
-import { nanoid } from 'nanoid';
+import { GameAction, Game, GameUser, db } from '../db';
 import { TRPCError } from '@trpc/server';
-import { cluster, list, range, shuffle, sort } from 'radash';
+import { cluster, list, range, shuffle, sort, uid } from 'radash';
 
 interface MyEvents {
   minus: (data: Game) => void;
@@ -40,12 +39,12 @@ export const roomRouter = router({
     .mutation(async ({ input, ctx }) => {
       const { name, email } = ctx.user;
 
-      const code = input.code || nanoid(4);
+      const code = input.code || uid(4);
 
       const user: GameUser = {
         cards: [],
         name,
-        id: email ?? nanoid(),
+        id: email ?? uid(10),
       };
 
       const dbGame = db.get(code);
