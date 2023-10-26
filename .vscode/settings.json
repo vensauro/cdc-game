@@ -1,0 +1,15 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": [
+    "authed",
+    "Authed",
+    "clsx",
+    "dayjs",
+    "formkit",
+    "healthcheck",
+    "radash",
+    "superjson",
+    "trpc",
+    "TRPC"
+  ]
+}
